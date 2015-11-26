@@ -44,7 +44,9 @@ struct List
 bool isEmptyStatus (List L);
 void CreateListStatus(List &L);
 address alokasi(status x);
-void addStatus(List *L, address p);
+void insertFirstStatus (List &L, address P);
+void insertAfterStatus (List &L, address P, address Q);
+void insertLastStatus (List &L, address P);
 address findStatus(List &L, status x);
 void EditStatus(List &L,status x);
 

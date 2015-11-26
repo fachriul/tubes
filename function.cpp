@@ -33,24 +33,42 @@ address alokasi(status x)
     return p;
 }
 
-void addStatus(List *L, address p)
+void insertFirstStatus (List &L, address P)
 {
-    if (isEmptyStatus(L) == true)
+    if (L.first == NULL)
     {
-        L->first = p;
-        p->next = NULL;
+        L.first = P;
+        L.last = P;
+        L.last->next = L.first;
+        L.first->prev = L.last;
     }
     else
     {
-        address tmp = L->first;
-        while (tmp->next != NULL)
-        {
-            tmp = tmp->next;
-        }
-        tmp->next = p;
-        p->next = NULL;
+        P->next = L.first;
+        L.first->prev = P;
+        L.first = P;
+        L.last->next = L.first;
+        L.first->prev = L.last;
     }
 }
+
+void insertAfterStatus (List &L, address P, address Q)
+{
+        P->next = Q->next;
+        Q->next->prev = P;
+        Q->next = P;
+        P->prev = Q;
+}
+
+void insertLastStatus (List &L, address P)
+{
+    L.last->next = P;
+    P->prev = L.last;
+    P->next = L.first;
+    L.first->prev = P;
+    L.last = P;
+}
+
 
 address findStatus(List &L, status x)
 {
@@ -70,7 +88,7 @@ void EditStatus(List &L,status x)
 {
     address p=L.first;
     string s;
-    if(p==NULL)
+    if(L.first==NULL)
     {
         cout<<"Data Kosong"<<endl;
     }
@@ -79,6 +97,17 @@ void EditStatus(List &L,status x)
         findStatus(L,x);
         cout<<"Masukkan Status: ";
         cin>>s;
+        p->infos.stats=s;
         cout<<"Status Berhasil Diedit";
     }
+}
+
+void inputStatus(status s)
+{
+    cout<<"INPUT STATUS"<<endl;
+    cout<<"=============="<<endl;
+    cout<<"Masukkan ID : ";
+    cin>>s.id_status;
+    cout<<"Masukkan Status : ";
+    cin>>s.stats;
 }
